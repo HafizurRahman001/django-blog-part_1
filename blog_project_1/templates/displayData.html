@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{%block content%}
+    <div class="display_data container my-5">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for data in postData%}
+                <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                    <h5 class="card-title">{{data.title}}</h5>
+                    <p class="card-text">
+                        {{data.content | truncatechars:150}}
+                    </p>
+                    <p>Author: {{data.author.name}}</p>
+                    <p class=''>Category: 
+                        {%for cat in data.category.all %}
+                            <btn style="margin-bottom: 4px" class='btn btn-light border'>
+                                {{cat.category_name}}
+                            </btn>
+                        {%endfor%}
+                    </p>
+                    <a href="{% url 'edit_post' data.id %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'delete_post' data.id %}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+                </div>
+            {%endfor%}
+
+          </div>
+    </div>
+{%endblock%}
